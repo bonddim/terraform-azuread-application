@@ -40,6 +40,7 @@ The following resources are used by this module:
 - [azuread_application_owner.this](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/application_owner) (resource)
 - [azuread_application_password.this](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/application_password) (resource)
 - [azuread_application_permission_scope.this](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/application_permission_scope) (resource)
+- [azuread_application_pre_authorized.this](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/application_pre_authorized) (resource)
 - [azuread_application_redirect_uris.public_client](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/application_redirect_uris) (resource)
 - [azuread_application_redirect_uris.spa](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/application_redirect_uris) (resource)
 - [azuread_application_redirect_uris.web](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/application_redirect_uris) (resource)
@@ -257,6 +258,23 @@ map(object({
     user_consent_description   = optional(string)
     user_consent_display_name  = optional(string)
     value                      = optional(string)
+  }))
+```
+
+Default: `{}`
+
+### <a name="input_pre_authorized_clients"></a> [pre\_authorized\_clients](#input\_pre\_authorized\_clients)
+
+Description: (Optional) A collection of pre-authorized client applications for this application's exposed permission scopes.  
+If `permission_scopes` is not provided, the client application will be pre-authorized for all of the application's exposed permission scopes.  
+If defined, `permission_scopes` should match keys in the `permission_scopes` variable of this application.
+
+Type:
+
+```hcl
+map(object({
+    authorized_client_id = string
+    permission_scopes    = optional(list(string), [])
   }))
 ```
 

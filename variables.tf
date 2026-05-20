@@ -199,6 +199,19 @@ variable "permission_scopes" {
   description = "(Optional) A collection of exposed permission scopes by the application."
 }
 
+variable "pre_authorized_clients" {
+  type = map(object({
+    authorized_client_id = string
+    permission_scopes    = optional(list(string), [])
+  }))
+  default     = {}
+  description = <<-EOF
+    (Optional) A collection of pre-authorized client applications for this application's exposed permission scopes.
+    If `permission_scopes` is not provided, the client application will be pre-authorized for all of the application's exposed permission scopes.
+    If defined, `permission_scopes` should match keys in the `permission_scopes` variable of this application.
+  EOF
+}
+
 variable "roles" {
   type = map(object({
     allowed_member_types = optional(list(string), ["User"])

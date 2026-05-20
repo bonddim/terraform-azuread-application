@@ -180,6 +180,21 @@ resource "azuread_application_permission_scope" "this" {
 }
 
 ################################################################################
+### Application Pre-Authorized Clients ###
+################################################################################
+resource "azuread_application_pre_authorized" "this" {
+  for_each = var.pre_authorized_clients
+
+  application_id       = azuread_application_registration.this.id
+  authorized_client_id = each.value.authorized_client_id
+  permission_ids = (
+    length(coalesce(each.value.permission_scopes, [])) > 0
+    ? [for scope in each.value.permission_scopes : azuread_application_permission_scope.this[scope].scope_id]
+    : [for scope in azuread_application_permission_scope.this : scope.scope_id]
+  )
+}
+
+################################################################################
 ### Application Roles ###
 ################################################################################
 resource "random_uuid" "role" {
