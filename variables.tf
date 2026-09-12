@@ -236,6 +236,21 @@ variable "federated_identity_credentials" {
   description = "(Optional) A collection of federated identity credentials for this application."
 }
 
+variable "flexible_federated_identity_credentials" {
+  type = map(object({
+    audience     = optional(string, "api://AzureADTokenExchange")
+    description  = optional(string)
+    display_name = string
+    issuer       = string
+    subject      = string
+  }))
+  default     = {}
+  description = <<-EOF
+    (Optional) A collection of flexible federated identity credentials for this application.
+    [Learn more](https://learn.microsoft.com/en-us/entra/workload-id/workload-identities-flexible-federated-identity-credentials?tabs=terraformcloud#flexible-federated-identity-credential-expression-language-functionality)
+  EOF
+}
+
 variable "generate_password" {
   type        = bool
   default     = false
