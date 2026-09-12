@@ -226,6 +226,17 @@ resource "azuread_application_federated_identity_credential" "this" {
   subject        = each.value.subject
 }
 
+resource "azuread_application_flexible_federated_identity_credential" "this" {
+  for_each = var.flexible_federated_identity_credentials
+
+  application_id             = azuread_application_registration.this.id
+  claims_matching_expression = each.value.claims_matching_expression
+  display_name               = each.value.display_name
+  description                = each.value.description
+  audience                   = each.value.audience
+  issuer                     = each.value.issuer
+}
+
 ################################################################################
 ### Application Password ###
 ################################################################################
