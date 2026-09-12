@@ -43,7 +43,7 @@ Full input, output, provider, and resource documentation is available on the [Te
 ```hcl
 module "application" {
   source  = "bonddim/application/azuread"
-  version = "~> 1.0"
+  version = "~> 0.3"
 
   display_name = "example-application"
 }
